@@ -28,8 +28,10 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/" className="text-2xl font-bold text-blue-600">
-              FliesenExpress24
+            <Link href="/" className="text-3xl font-extrabold text-gray-900 tracking-tight hover:text-gray-700 transition-colors">
+              <span className="text-orange-500">Fliesen</span>
+              <span className="text-gray-900">Express</span>
+              <span className="text-orange-500">24</span>
             </Link>
           </div>
 

@@ -67,10 +67,10 @@ export default function HeroSlider() {
                   className="w-full h-full bg-cover bg-center bg-no-repeat"
                   style={{ backgroundImage: `url(${slide.image})` }}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-600/60"></div>
+                  <div className="absolute inset-0 bg-black/50"></div>
                 </div>
               ) : (
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-600/60">
+                <div className="absolute inset-0 bg-gradient-to-r from-black-900/80 to-black-600/60">
                   <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                     <span className="text-gray-400 text-lg">Görsel: {slide.title}</span>
                   </div>
@@ -88,7 +88,7 @@ export default function HeroSlider() {
                   <p className="text-xl md:text-2xl text-white/90 mb-8">
                     {slide.subtitle}
                   </p>
-                  <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
+                  <Button asChild size="lg" className="bg-white text-white-600 hover:bg-gray-100">
                     <Link href={slide.buttonLink}>
                       {slide.buttonText}
                     </Link>
@@ -103,7 +103,7 @@ export default function HeroSlider() {
       {/* Navigation Arrows */}
       <button
         onClick={goToPrevious}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-2 rounded-full transition-colors"
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/35 hover:bg-black/50 text-white p-2 rounded-full transition-colors"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -111,7 +111,7 @@ export default function HeroSlider() {
       </button>
       <button
         onClick={goToNext}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-2 rounded-full transition-colors"
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/35 hover:bg-black/50 text-white p-2 rounded-full transition-colors"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

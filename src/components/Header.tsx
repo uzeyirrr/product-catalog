@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import ContactForm from '@/components/ContactForm';
@@ -8,6 +8,19 @@ import ContactForm from '@/components/ContactForm';
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
+
+  useEffect(() => {
+    // Footer'dan gelen contact form event'ini dinle
+    const handleOpenContactForm = () => {
+      setIsContactFormOpen(true);
+    };
+
+    window.addEventListener('openContactForm', handleOpenContactForm);
+
+    return () => {
+      window.removeEventListener('openContactForm', handleOpenContactForm);
+    };
+  }, []);
 
   return (
     <header className="bg-white shadow-sm border-b">

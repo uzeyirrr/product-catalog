@@ -47,19 +47,25 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/kategorien" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/categories" className="text-gray-300 hover:text-white transition-colors">
                   Kategorien
                 </Link>
               </li>
               <li>
-                <Link href="/produkte" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/products" className="text-gray-300 hover:text-white transition-colors">
                   Produkte
                 </Link>
               </li>
               <li>
-                <Link href="/kontakt" className="text-gray-300 hover:text-white transition-colors">
+                <button 
+                  onClick={() => {
+                    // Contact form popup'ını açmak için parent component'e event gönder
+                    window.dispatchEvent(new CustomEvent('openContactForm'));
+                  }}
+                  className="text-gray-300 hover:text-white transition-colors text-left"
+                >
                   Kontakt
-                </Link>
+                </button>
               </li>
             </ul>
           </div>
@@ -71,7 +77,7 @@ export default function Footer() {
               {categories.map((category) => (
                 <li key={category.id}>
                   <Link 
-                    href={`/kategorie/${category.slug}`}
+                    href={`/categories/${category.slug}`}
                     className="text-gray-300 hover:text-white transition-colors"
                   >
                     {category.name}

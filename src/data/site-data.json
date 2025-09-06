@@ -1,0 +1,379 @@
+{
+  "siteInfo": {
+    "title": "FliesenExpress24",
+    "description": "Hochwertige Fliesen und Keramikprodukte",
+    "logo": "/logo.png",
+    "contact": {
+      "phone": "+49 30 555 0123",
+      "email": "info@fliesenexpress24.de",
+      "address": "Berlin, Deutschland"
+    }
+  },
+  "admin": {
+    "username": "admin",
+    "password": "admin123",
+    "email": "admin@fliesenexpress24.de",
+    "name": "Administrator"
+  },
+  "slider": [
+    {
+      "id": 1,
+      "title": "Premium Fliesen Kollektion",
+      "subtitle": "Moderne und elegante Designs für Ihr Zuhause",
+      "image": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&h=600&fit=crop&crop=center",
+      "buttonText": "Kollektion entdecken",
+      "buttonLink": "/categories"
+    },
+    {
+      "id": 2,
+      "title": "Badezimmer Keramik",
+      "subtitle": "Hygienisch und langlebig - Perfekt für Ihr Bad",
+      "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&h=600&fit=crop&crop=center",
+      "buttonText": "Badezimmer ansehen",
+      "buttonLink": "/categories/badezimmer"
+    },
+    {
+      "id": 3,
+      "title": "Küchen Keramik",
+      "subtitle": "Praktische und ästhetische Lösungen für Ihre Küche",
+      "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&h=600&fit=crop&crop=center",
+      "buttonText": "Küche entdecken",
+      "buttonLink": "/categories/kueche"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Badezimmer Keramik",
+      "slug": "badezimmer",
+      "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=400&fit=crop&crop=center",
+      "description": "Premium Keramik für moderne Badezimmer-Designs"
+    },
+    {
+      "id": 2,
+      "name": "Küchen Keramik",
+      "slug": "kueche",
+      "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=400&fit=crop&crop=center",
+      "description": "Langlebige und elegante Keramik für Ihre Küche"
+    },
+    {
+      "id": 3,
+      "name": "Wohnzimmer Fliesen",
+      "slug": "wohnzimmer",
+      "image": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=400&fit=crop&crop=center",
+      "description": "Fliesen-Kollektion, die Ihr Wohnzimmer verschönert"
+    },
+    {
+      "id": 4,
+      "name": "Außenbereich",
+      "slug": "aussenbereich",
+      "image": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=400&fit=crop&crop=center",
+      "description": "Spezielle Keramik für Garten und Terrasse"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Moderne Badezimmer Keramik",
+      "category": "badezimmer",
+      "price": 45.99,
+      "originalPrice": 59.99,
+      "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center",
+      "images": [
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center"
+      ],
+      "description": "Wasserdichte und hygienische Badezimmer-Keramik mit modernem Design",
+      "features": ["Wasserdicht", "Leicht zu reinigen", "Langlebig", "Antibakteriell"],
+      "specifications": {
+        "Material": "Keramik",
+        "Größe": "30x30 cm",
+        "Dicke": "8 mm",
+        "Oberfläche": "Glasiert",
+        "Frostbeständig": "Ja",
+        "Rutschfest": "Ja"
+      },
+      "inStock": true,
+      "rating": 4.8,
+      "createdAt": "2024-01-15T10:30:00Z",
+      "updatedAt": "2024-01-15T10:30:00Z"
+    },
+    {
+      "id": 2,
+      "name": "Luxus Küchen Keramik",
+      "category": "kueche",
+      "price": 52.50,
+      "originalPrice": null,
+      "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center",
+      "images": [
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop&crop=center"
+      ],
+      "description": "Speziell für Küchen entwickelte Keramik mit hoher Belastbarkeit",
+      "features": ["Fleckenresistent", "Hitzebeständig", "Modernes Design", "Kratzfest"],
+      "specifications": {
+        "Material": "Keramik",
+        "Größe": "60x60 cm",
+        "Dicke": "10 mm",
+        "Oberfläche": "Matt",
+        "Hitzebeständig": "Bis 200°C",
+        "Fleckenresistent": "Ja"
+      },
+      "inStock": true,
+      "rating": 4.9,
+      "createdAt": "2024-01-16T14:20:00Z",
+      "updatedAt": "2024-01-16T14:20:00Z"
+    },
+    {
+      "id": 3,
+      "name": "Wohnzimmer Fliesen Premium",
+      "category": "wohnzimmer",
+      "price": 38.75,
+      "originalPrice": 48.75,
+      "image": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop&crop=center",
+      "images": [
+        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center"
+      ],
+      "description": "Elegante und langlebige Fliesen für Wohnzimmer mit strukturierter Oberfläche",
+      "features": ["Rutschfeste Oberfläche", "Einfache Montage", "Langlebig", "Wärmeisolierend"],
+      "specifications": {
+        "Material": "Keramik",
+        "Größe": "45x45 cm",
+        "Dicke": "9 mm",
+        "Oberfläche": "Strukturiert",
+        "Rutschfest": "Ja",
+        "Pflegeleicht": "Ja"
+      },
+      "inStock": true,
+      "rating": 4.7,
+      "createdAt": "2024-01-17T09:15:00Z",
+      "updatedAt": "2024-01-17T09:15:00Z"
+    },
+    {
+      "id": 4,
+      "name": "Garten Keramik",
+      "category": "aussenbereich",
+      "price": 29.99,
+      "originalPrice": null,
+      "image": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop&crop=center",
+      "images": [
+        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center"
+      ],
+      "description": "Spezielle Keramik für Außenbereiche mit extremer Wetterbeständigkeit",
+      "features": ["Wetterbeständig", "Rutschfest", "UV-beständig", "Frostsicher"],
+      "specifications": {
+        "Material": "Keramik",
+        "Größe": "40x40 cm",
+        "Dicke": "12 mm",
+        "Oberfläche": "Rau",
+        "Frostbeständig": "Ja",
+        "UV-beständig": "Ja"
+      },
+      "inStock": true,
+      "rating": 4.6,
+      "createdAt": "2024-01-18T16:45:00Z",
+      "updatedAt": "2024-01-18T16:45:00Z"
+    },
+    {
+      "id": 5,
+      "name": "Premium Badezimmer Fliesen",
+      "category": "badezimmer",
+      "price": 67.50,
+      "originalPrice": 89.99,
+      "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center",
+      "images": [
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center"
+      ],
+      "description": "Hochwertige Badezimmer-Fliesen mit luxuriösem Glanz und perfekter Hygiene",
+      "features": ["Luxus-Glanz", "Antibakteriell", "Wasserdicht", "Pflegeleicht"],
+      "specifications": {
+        "Material": "Keramik",
+        "Größe": "60x60 cm",
+        "Dicke": "10 mm",
+        "Oberfläche": "Hochglanz",
+        "Frostbeständig": "Ja",
+        "Rutschfest": "Ja"
+      },
+      "inStock": true,
+      "rating": 4.9,
+      "createdAt": "2024-01-19T11:20:00Z",
+      "updatedAt": "2024-01-19T11:20:00Z"
+    },
+    {
+      "id": 6,
+      "name": "Moderne Küchen Fliesen",
+      "category": "kueche",
+      "price": 42.99,
+      "originalPrice": null,
+      "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center",
+      "images": [
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop&crop=center"
+      ],
+      "description": "Moderne Küchen-Fliesen mit eleganter Optik und praktischen Eigenschaften",
+      "features": ["Modernes Design", "Fleckenresistent", "Hitzebeständig", "Einfache Reinigung"],
+      "specifications": {
+        "Material": "Keramik",
+        "Größe": "30x60 cm",
+        "Dicke": "8 mm",
+        "Oberfläche": "Matt",
+        "Hitzebeständig": "Bis 150°C",
+        "Fleckenresistent": "Ja"
+      },
+      "inStock": true,
+      "rating": 4.5,
+      "createdAt": "2024-01-20T14:30:00Z",
+      "updatedAt": "2024-01-20T14:30:00Z"
+    },
+    {
+      "id": 7,
+      "name": "Elegante Wohnzimmer Keramik",
+      "category": "wohnzimmer",
+      "price": 55.75,
+      "originalPrice": 69.99,
+      "image": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop&crop=center",
+      "images": [
+        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop&crop=center"
+      ],
+      "description": "Elegante Wohnzimmer-Keramik mit natürlicher Holzoptik und warmer Ausstrahlung",
+      "features": ["Holzoptik", "Warm", "Natürlich", "Langlebig"],
+      "specifications": {
+        "Material": "Keramik",
+        "Größe": "20x120 cm",
+        "Dicke": "7 mm",
+        "Oberfläche": "Strukturiert",
+        "Rutschfest": "Ja",
+        "Pflegeleicht": "Ja"
+      },
+      "inStock": true,
+      "rating": 4.8,
+      "createdAt": "2024-01-21T09:45:00Z",
+      "updatedAt": "2024-01-21T09:45:00Z"
+    },
+    {
+      "id": 8,
+      "name": "Terrasse Naturstein Fliesen",
+      "category": "aussenbereich",
+      "price": 39.99,
+      "originalPrice": null,
+      "image": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop&crop=center",
+      "images": [
+        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center"
+      ],
+      "description": "Naturstein-Fliesen für Terrasse und Garten mit authentischer Optik",
+      "features": ["Naturstein-Optik", "Wetterbeständig", "Rutschfest", "Langlebig"],
+      "specifications": {
+        "Material": "Keramik",
+        "Größe": "60x60 cm",
+        "Dicke": "15 mm",
+        "Oberfläche": "Naturstein",
+        "Frostbeständig": "Ja",
+        "UV-beständig": "Ja"
+      },
+      "inStock": true,
+      "rating": 4.7,
+      "createdAt": "2024-01-22T16:15:00Z",
+      "updatedAt": "2024-01-22T16:15:00Z"
+    },
+    {
+      "id": 9,
+      "name": "Luxus Badezimmer Mosaik",
+      "category": "badezimmer",
+      "price": 89.99,
+      "originalPrice": 119.99,
+      "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center",
+      "images": [
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop&crop=center"
+      ],
+      "description": "Luxuriöse Mosaik-Fliesen für exklusive Badezimmer-Designs",
+      "features": ["Mosaik-Design", "Luxuriös", "Einzigartig", "Hochwertig"],
+      "specifications": {
+        "Material": "Keramik",
+        "Größe": "30x30 cm",
+        "Dicke": "6 mm",
+        "Oberfläche": "Mosaik",
+        "Frostbeständig": "Ja",
+        "Rutschfest": "Ja"
+      },
+      "inStock": true,
+      "rating": 5.0,
+      "createdAt": "2024-01-23T13:20:00Z",
+      "updatedAt": "2024-01-23T13:20:00Z"
+    },
+    {
+      "id": 10,
+      "name": "Industrie Küchen Fliesen",
+      "category": "kueche",
+      "price": 34.50,
+      "originalPrice": null,
+      "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center",
+      "images": [
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop&crop=center"
+      ],
+      "description": "Robuste Industrie-Küchen-Fliesen für professionelle Anwendungen",
+      "features": ["Industrie-Qualität", "Extrem belastbar", "Hitzebeständig", "Chemikalienresistent"],
+      "specifications": {
+        "Material": "Keramik",
+        "Größe": "60x60 cm",
+        "Dicke": "12 mm",
+        "Oberfläche": "Industrie",
+        "Hitzebeständig": "Bis 300°C",
+        "Chemikalienresistent": "Ja"
+      },
+      "inStock": true,
+      "rating": 4.6,
+      "createdAt": "2024-01-24T10:10:00Z",
+      "updatedAt": "2024-01-24T10:10:00Z"
+    }
+  ],
+  "contactForm": {
+    "title": "Kontakt aufnehmen",
+    "subtitle": "Kontaktieren Sie uns für Ihre Fragen",
+    "fields": [
+      {
+        "name": "name",
+        "label": "Vor- und Nachname",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "email",
+        "label": "E-Mail",
+        "type": "email",
+        "required": true
+      },
+      {
+        "name": "phone",
+        "label": "Telefon",
+        "type": "tel",
+        "required": false
+      },
+      {
+        "name": "subject",
+        "label": "Betreff",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "message",
+        "label": "Nachricht",
+        "type": "textarea",
+        "required": true
+      }
+    ]
+  }
+}

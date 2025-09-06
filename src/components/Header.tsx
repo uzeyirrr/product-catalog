@@ -31,9 +31,12 @@ export default function Header() {
             <Link href="/products" className="text-gray-700 hover:text-blue-600 transition-colors">
               Produkte
             </Link>
-            <Link href="/kontakt" className="text-gray-700 hover:text-blue-600 transition-colors">
+            <button 
+              onClick={() => setIsContactFormOpen(true)}
+              className="text-gray-700 hover:text-blue-600 transition-colors"
+            >
               Kontakt
-            </Link>
+            </button>
           </nav>
 
           {/* CTA Button */}
@@ -69,9 +72,15 @@ export default function Header() {
               <Link href="/products" className="block px-3 py-2 text-gray-700 hover:text-blue-600">
                 Produkte
               </Link>
-              <Link href="/kontakt" className="block px-3 py-2 text-gray-700 hover:text-blue-600">
+              <button 
+                onClick={() => {
+                  setIsContactFormOpen(true);
+                  setIsMenuOpen(false);
+                }}
+                className="block w-full text-left px-3 py-2 text-gray-700 hover:text-blue-600"
+              >
                 Kontakt
-              </Link>
+              </button>
               <div className="px-3 py-2">
                 <Button 
                   onClick={() => {

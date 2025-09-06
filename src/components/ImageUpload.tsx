@@ -53,22 +53,19 @@ export default function ImageUpload({ onUpload, onMultipleUpload, type, currentI
     setIsUploading(true);
 
     try {
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('type', type);
-
-      const response = await fetch('/api/upload', {
+      const filename = `${type}/${Date.now()}-${file.name}`;
+      const response = await fetch(`/api/upload?filename=${encodeURIComponent(filename)}`, {
         method: 'POST',
-        body: formData,
+        body: file,
       });
 
       const result = await response.json();
 
-      if (result.success) {
+      if (result.url) {
         setPreview(result.url);
         onUpload(result.url);
       } else {
-        alert('Fehler beim Hochladen: ' + result.error);
+        alert('Fehler beim Hochladen: ' + (result.error || 'Unbekannter Fehler'));
       }
     } catch (error) {
       console.error('Upload error:', error);
@@ -105,21 +102,18 @@ export default function ImageUpload({ onUpload, onMultipleUpload, type, currentI
 
     try {
       for (const file of validFiles) {
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('type', type);
-
-        const response = await fetch('/api/upload', {
+        const filename = `${type}/${Date.now()}-${file.name}`;
+        const response = await fetch(`/api/upload?filename=${encodeURIComponent(filename)}`, {
           method: 'POST',
-          body: formData,
+          body: file,
         });
 
         const result = await response.json();
 
-        if (result.success) {
+        if (result.url) {
           uploadedUrls.push(result.url);
         } else {
-          alert(`Fehler beim Hochladen von ${file.name}: ${result.error}`);
+          alert(`Fehler beim Hochladen von ${file.name}: ${result.error || 'Unbekannter Fehler'}`);
         }
       }
 

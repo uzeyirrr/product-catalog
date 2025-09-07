@@ -13,7 +13,11 @@ export default function ProductShowcase() {
   useEffect(() => {
     // Hydration hatası önlemek için mounted state
     setMounted(true);
-    setFeaturedProducts(getProducts().slice(0, 4));
+    const loadProducts = async () => {
+      const productsData = await getProducts();
+      setFeaturedProducts(productsData.slice(0, 4));
+    };
+    loadProducts();
   }, []);
 
   // Hydration hatası önlemek için loading state

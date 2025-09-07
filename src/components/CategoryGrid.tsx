@@ -12,7 +12,11 @@ export default function CategoryGrid() {
   useEffect(() => {
     // Hydration hatası önlemek için mounted state
     setMounted(true);
-    setCategories(getCategories());
+    const loadCategories = async () => {
+      const categoriesData = await getCategories();
+      setCategories(categoriesData);
+    };
+    loadCategories();
   }, []);
 
   // Hydration hatası önlemek için loading state

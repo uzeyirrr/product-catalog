@@ -41,17 +41,20 @@ export default function CategoriesPage() {
   const [categoryStats, setCategoryStats] = useState<Record<string, number>>({});
 
   useEffect(() => {
-    const allCategories = getCategories();
-    const allProducts = getProducts();
-    setCategories(allCategories);
-    setProducts(allProducts);
+    const loadData = async () => {
+      const allCategories = await getCategories();
+      const allProducts = await getProducts();
+      setCategories(allCategories);
+      setProducts(allProducts);
 
-    // Her kategorideki ürün sayısını hesapla
-    const stats: Record<string, number> = {};
-    allCategories.forEach(category => {
-      stats[category.slug] = allProducts.filter(product => product.category === category.slug).length;
-    });
-    setCategoryStats(stats);
+      // Her kategorideki ürün sayısını hesapla
+      const stats: Record<string, number> = {};
+      allCategories.forEach(category => {
+        stats[category.slug] = allProducts.filter(product => product.category === category.slug).length;
+      });
+      setCategoryStats(stats);
+    };
+    loadData();
   }, []);
 
   return (

@@ -25,12 +25,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Product, getProducts, addProduct, updateProduct, deleteProduct, getCategories } from '@/lib/data-manager';
+import { Product, Category, getProducts, addProduct, updateProduct, deleteProduct, getCategories } from '@/lib/data-manager';
 import ImageUpload from '@/components/ImageUpload';
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [categories] = useState(getCategories());
+  const [categories, setCategories] = useState<Category[]>([]);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
@@ -46,9 +46,15 @@ export default function ProductsPage() {
     rating: 0,
   });
 
-  // Ürünleri yükle
+  // Ürünleri ve kategorileri yükle
   useEffect(() => {
-    setProducts(getProducts());
+    const loadData = async () => {
+      const productsData = await getProducts();
+      const categoriesData = await getCategories();
+      setProducts(productsData);
+      setCategories(categoriesData);
+    };
+    loadData();
   }, []);
 
   const handleAddProduct = async () => {
@@ -69,7 +75,8 @@ export default function ProductsPage() {
       
       const addedProduct = await addProduct(productData);
       if (addedProduct) {
-        setProducts(getProducts()); // JSON'dan güncel verileri al
+        const updatedProducts = await getProducts(); // JSON'dan güncel verileri al
+        setProducts(updatedProducts);
         setNewProduct({
           name: '',
           category: '',
@@ -94,7 +101,8 @@ export default function ProductsPage() {
     if (editingProduct) {
       const updatedProduct = await updateProduct(editingProduct.id, editingProduct);
       if (updatedProduct) {
-        setProducts(getProducts()); // JSON'dan güncel verileri al
+        const updatedProducts = await getProducts(); // JSON'dan güncel verileri al
+        setProducts(updatedProducts);
         setIsEditDialogOpen(false);
         setEditingProduct(null);
       }
@@ -104,7 +112,8 @@ export default function ProductsPage() {
   const handleDeleteProduct = async (id: number) => {
     const success = await deleteProduct(id);
     if (success) {
-      setProducts(getProducts()); // JSON'dan güncel verileri al
+      const updatedProducts = await getProducts(); // JSON'dan güncel verileri al
+      setProducts(updatedProducts);
     }
   };
 
@@ -113,7 +122,8 @@ export default function ProductsPage() {
     if (product) {
       const updatedProduct = await updateProduct(id, { inStock: !product.inStock });
       if (updatedProduct) {
-        setProducts(getProducts()); // JSON'dan güncel verileri al
+        const updatedProducts = await getProducts(); // JSON'dan güncel verileri al
+        setProducts(updatedProducts);
       }
     }
   };

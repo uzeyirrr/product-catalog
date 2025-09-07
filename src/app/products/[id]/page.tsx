@@ -18,7 +18,7 @@ interface Product {
   image: string;
   images: string[];
   features: string[];
-  specifications: Record<string, string>;
+  specifications: Record<string, string | undefined>;
   inStock: boolean;
   createdAt: string;
   updatedAt: string;
@@ -39,22 +39,25 @@ export default function ProductDetailPage() {
       return;
     }
 
-    const foundProduct = getProductById(productId);
-    if (!foundProduct) {
-      router.push('/');
-      return;
-    }
+    const loadData = async () => {
+      const foundProduct = await getProductById(productId);
+      if (!foundProduct) {
+        router.push('/');
+        return;
+      }
 
-    setProduct(foundProduct);
-    
-    // İlgili ürünleri getir (aynı kategoriden)
-    const allProducts = getProducts();
-    const related = allProducts
-      .filter(p => p.id !== productId && p.category === foundProduct.category)
-      .slice(0, 4);
-    setRelatedProducts(related);
-    
-    setIsLoading(false);
+      setProduct(foundProduct);
+      
+      // İlgili ürünleri getir (aynı kategoriden)
+      const allProducts = await getProducts();
+      const related = allProducts
+        .filter(p => p.id !== productId && p.category === foundProduct.category)
+        .slice(0, 4);
+      setRelatedProducts(related);
+      
+      setIsLoading(false);
+    };
+    loadData();
   }, [params.id, router]);
 
   if (isLoading) {

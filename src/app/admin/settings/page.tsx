@@ -7,7 +7,7 @@ import { getSiteInfo, updateSiteInfo, getProducts, getCategories, getSlides } fr
 import ImageUpload from '@/components/ImageUpload';
 
 export default function SettingsPage() {
-  const [settings, setSettings] = useState(getSiteInfo());
+  const [settings, setSettings] = useState<any>({});
   const [isSaving, setIsSaving] = useState(false);
   const [stats, setStats] = useState({
     products: 0,
@@ -15,13 +15,24 @@ export default function SettingsPage() {
     slides: 0
   });
 
-  // İstatistikleri yükle
+  // İstatistikleri ve ayarları yükle
   useEffect(() => {
-    setStats({
-      products: getProducts().length,
-      categories: getCategories().length,
-      slides: getSlides().length
-    });
+    const loadData = async () => {
+      const [siteInfo, products, categories, slides] = await Promise.all([
+        getSiteInfo(),
+        getProducts(),
+        getCategories(),
+        getSlides()
+      ]);
+      
+      setSettings(siteInfo);
+      setStats({
+        products: products.length,
+        categories: categories.length,
+        slides: slides.length
+      });
+    };
+    loadData();
   }, []);
 
   const handleSave = async () => {

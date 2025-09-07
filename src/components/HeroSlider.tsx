@@ -13,7 +13,11 @@ export default function HeroSlider() {
   useEffect(() => {
     // Hydration hatası önlemek için mounted state
     setMounted(true);
-    setSlides(getSlides());
+    const loadSlides = async () => {
+      const slidesData = await getSlides();
+      setSlides(slidesData);
+    };
+    loadSlides();
   }, []);
 
   useEffect(() => {

@@ -16,6 +16,7 @@ export default function AdminDashboard() {
   });
   const [recentProducts, setRecentProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [categoryProductCounts, setCategoryProductCounts] = useState<Record<string, number>>({});
 
   useEffect(() => {
     const checkAuth = () => {
@@ -31,10 +32,10 @@ export default function AdminDashboard() {
     loadDashboardData();
   }, [router]);
 
-  const loadDashboardData = () => {
-    const products = getProducts();
-    const categoriesData = getCategories();
-    const slides = getSlides();
+  const loadDashboardData = async () => {
+    const products = await getProducts();
+    const categoriesData = await getCategories();
+    const slides = await getSlides();
     
     setStats({
       totalProducts: products.length,
@@ -45,6 +46,33 @@ export default function AdminDashboard() {
     
     setRecentProducts(products.slice(0, 3));
     setCategories(categoriesData);
+    
+    // Kategori başına ürün sayısını hesapla
+    const counts: Record<string, number> = {};
+    categoriesData.forEach(category => {
+      counts[category.slug] = products.filter(p => p.category === category.slug).length;
+    });
+    setCategoryProductCounts(counts);
+  };
+
+  const handleInitData = async () => {
+    if (confirm('Mevcut mock verileri Blob Storage\'a yüklemek istediğinizden emin misiniz?')) {
+      try {
+        const response = await fetch('/api/init-data', {
+          method: 'POST',
+        });
+        const result = await response.json();
+        
+        if (result.success) {
+          alert('Veriler başarıyla yüklendi!');
+          loadDashboardData(); // Dashboard'ı yenile
+        } else {
+          alert('Veri yüklenirken hata oluştu!');
+        }
+      } catch (error) {
+        alert('Veri yüklenirken hata oluştu!');
+      }
+    }
   };
 
   return (
@@ -142,8 +170,7 @@ export default function AdminDashboard() {
           <CardContent>
             <div className="space-y-3">
               {categories.map((category) => {
-                const products = getProducts();
-                const productCount = products.filter(p => p.category === category.slug).length;
+                const productCount = categoryProductCounts[category.slug] || 0;
                 return (
                   <div key={category.id} className="flex items-center justify-between p-3 border rounded-lg">
                     <div>
@@ -201,6 +228,24 @@ export default function AdminDashboard() {
               </div>
             </a>
           </div>
+          
+          {/* İlk Veri Yükleme */}
+          {stats.totalProducts === 0 && (
+            <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="font-medium text-blue-900">İlk Veri Yükleme</h4>
+                  <p className="text-sm text-blue-700">Mock verileri Blob Storage'a yüklemek için butona tıklayın</p>
+                </div>
+                <button
+                  onClick={handleInitData}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Verileri Yükle
+                </button>
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

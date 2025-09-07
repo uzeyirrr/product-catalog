@@ -41,7 +41,11 @@ export default function CategoriesPage() {
 
   // Kategorileri yükle
   useEffect(() => {
-    setCategories(getCategories());
+    const loadCategories = async () => {
+      const categoriesData = await getCategories();
+      setCategories(categoriesData);
+    };
+    loadCategories();
   }, []);
 
   const generateSlug = (name: string) => {

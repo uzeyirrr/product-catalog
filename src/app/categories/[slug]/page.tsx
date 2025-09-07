@@ -56,18 +56,21 @@ export default function CategoryDetailPage() {
       return;
     }
 
-    const allCategories = getCategories();
-    const allProducts = getProducts();
-    
-    const foundCategory = allCategories.find(cat => cat.slug === slug);
-    if (!foundCategory) {
-      router.push('/categories');
-      return;
-    }
+    const loadData = async () => {
+      const allCategories = await getCategories();
+      const allProducts = await getProducts();
+      
+      const foundCategory = allCategories.find(cat => cat.slug === slug);
+      if (!foundCategory) {
+        router.push('/categories');
+        return;
+      }
 
-    setCategory(foundCategory);
-    setProducts(allProducts);
-    setIsLoading(false);
+      setCategory(foundCategory);
+      setProducts(allProducts);
+      setIsLoading(false);
+    };
+    loadData();
   }, [params.slug, router]);
 
   useEffect(() => {

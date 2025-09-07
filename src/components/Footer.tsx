@@ -2,16 +2,23 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { getSiteInfo, getCategories } from '@/lib/data-manager';
+import { getSiteInfo, getCategories, SiteInfo, Category } from '@/lib/data-manager';
 
 export default function Footer() {
-  const [siteInfo, setSiteInfo] = useState(getSiteInfo());
-  const [categories, setCategories] = useState(getCategories());
+  const [siteInfo, setSiteInfo] = useState<SiteInfo | null>(null);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
     // Site bilgilerini ve kategorileri yükle
-    setSiteInfo(getSiteInfo());
-    setCategories(getCategories());
+    const loadData = async () => {
+      const [siteInfoData, categoriesData] = await Promise.all([
+        getSiteInfo(),
+        getCategories()
+      ]);
+      setSiteInfo(siteInfoData);
+      setCategories(categoriesData);
+    };
+    loadData();
   }, []);
 
   return (
@@ -20,19 +27,19 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
-            <h3 className="text-2xl font-bold mb-4">{siteInfo.title}</h3>
+            <h3 className="text-2xl font-bold mb-4">{siteInfo?.title || 'FliesenExpress24'}</h3>
             <p className="text-gray-300 mb-4">
-              {siteInfo.description}
+              {siteInfo?.description || 'Hochwertige Fliesen und Keramikprodukte'}
             </p>
             <div className="space-y-2">
               <p className="text-gray-300">
-                <span className="font-medium">Telefon:</span> {siteInfo.contact.phone}
+                <span className="font-medium">Telefon:</span> {siteInfo?.contact?.phone || '+49 30 555 0123'}
               </p>
               <p className="text-gray-300">
-                <span className="font-medium">E-Mail:</span> {siteInfo.contact.email}
+                <span className="font-medium">E-Mail:</span> {siteInfo?.contact?.email || 'info@fliesenexpress24.de'}
               </p>
               <p className="text-gray-300">
-                <span className="font-medium">Adresse:</span> {siteInfo.contact.address}
+                <span className="font-medium">Adresse:</span> {siteInfo?.contact?.address || 'Berlin, Deutschland'}
               </p>
             </div>
           </div>
@@ -90,7 +97,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400">
-            © 2024 {siteInfo.title}. Alle Rechte vorbehalten.
+            © 2024 {siteInfo?.title || 'FliesenExpress24'}. Alle Rechte vorbehalten.
           </p>
         </div>
       </div>

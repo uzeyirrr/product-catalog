@@ -49,10 +49,61 @@ export interface SiteInfo {
   };
 }
 
-// Local storage'a kaydet (client-side)
-export const saveToLocalStorage = (data: any) => {
+// API'ye veri kaydet
+export const saveToAPI = async (data: typeof siteData) => {
   try {
-    localStorage.setItem('siteData', JSON.stringify(data));
+    const response = await fetch('/api/data', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+    if (result.success) {
+      localData = data;
+      // Local storage'a da kaydet (offline için)
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('siteData', JSON.stringify(data));
+      }
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error('API kaydedilirken hata:', error);
+    // Offline durumda local storage'a kaydet
+    return saveToLocalStorage(data);
+  }
+};
+
+// API'den veri yükle
+export const loadFromAPI = async () => {
+  try {
+    const response = await fetch('/api/data');
+    if (response.ok) {
+      const data = await response.json();
+      localData = data;
+      // Local storage'a da kaydet
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('siteData', JSON.stringify(data));
+      }
+      return data;
+    }
+    throw new Error('API yanıtı başarısız');
+  } catch (error) {
+    console.error('API yüklenirken hata:', error);
+    // Offline durumda local storage'dan yükle
+    return loadFromLocalStorage();
+  }
+};
+
+// Local storage'a kaydet (offline için)
+export const saveToLocalStorage = (data: typeof siteData) => {
+  try {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('siteData', JSON.stringify(data));
+    }
     localData = data;
     return true;
   } catch (error) {
@@ -61,13 +112,15 @@ export const saveToLocalStorage = (data: any) => {
   }
 };
 
-// Local storage'dan yükle
+// Local storage'dan yükle (offline için)
 export const loadFromLocalStorage = () => {
   try {
-    const stored = localStorage.getItem('siteData');
-    if (stored) {
-      localData = JSON.parse(stored);
-      return localData;
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('siteData');
+      if (stored) {
+        localData = JSON.parse(stored);
+        return localData;
+      }
     }
     return siteData;
   } catch (error) {
@@ -77,18 +130,18 @@ export const loadFromLocalStorage = () => {
 };
 
 // Ürün yönetimi
-export const getProducts = (): Product[] => {
-  const data = loadFromLocalStorage();
+export const getProducts = async (): Promise<Product[]> => {
+  const data = await loadFromAPI();
   return data.products as Product[];
 };
 
-export const getProductById = (id: number): Product | null => {
-  const data = loadFromLocalStorage();
+export const getProductById = async (id: number): Promise<Product | null> => {
+  const data = await loadFromAPI();
   return (data.products as Product[]).find(p => p.id === id) || null;
 };
 
 export const addProduct = async (product: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>) => {
-  const data = loadFromLocalStorage();
+  const data = await loadFromAPI();
   const products = data.products as Product[];
   const newId = Math.max(...products.map(p => p.id), 0) + 1;
   const now = new Date().toISOString();
@@ -105,12 +158,12 @@ export const addProduct = async (product: Omit<Product, 'id' | 'createdAt' | 'up
     products: [...products, newProduct]
   };
   
-  const success = saveToLocalStorage(updatedData);
+  const success = await saveToAPI(updatedData);
   return success ? newProduct : null;
 };
 
 export const updateProduct = async (id: number, updates: Partial<Product>) => {
-  const data = loadFromLocalStorage();
+  const data = await loadFromAPI();
   const products = data.products as Product[];
   const productIndex = products.findIndex(p => p.id === id);
   
@@ -130,12 +183,12 @@ export const updateProduct = async (id: number, updates: Partial<Product>) => {
     products
   };
   
-  const success = saveToLocalStorage(updatedData);
+  const success = await saveToAPI(updatedData);
   return success ? updatedProduct : null;
 };
 
 export const deleteProduct = async (id: number) => {
-  const data = loadFromLocalStorage();
+  const data = await loadFromAPI();
   const filteredProducts = (data.products as Product[]).filter(p => p.id !== id);
   
   const updatedData = {
@@ -143,20 +196,20 @@ export const deleteProduct = async (id: number) => {
     products: filteredProducts
   };
   
-  const success = saveToLocalStorage(updatedData);
+  const success = await saveToAPI(updatedData);
   return success;
 };
 
 // Kategori yönetimi
-export const getCategories = (): Category[] => {
-  const data = loadFromLocalStorage();
+export const getCategories = async (): Promise<Category[]> => {
+  const data = await loadFromAPI();
   return data.categories;
 };
 
 export const addCategory = async (category: Omit<Category, 'id'>) => {
-  const data = loadFromLocalStorage();
+  const data = await loadFromAPI();
   const categories = data.categories;
-  const newId = Math.max(...categories.map(c => c.id), 0) + 1;
+  const newId = Math.max(...categories.map((c: Category) => c.id), 0) + 1;
   
   const newCategory: Category = {
     ...category,
@@ -168,14 +221,14 @@ export const addCategory = async (category: Omit<Category, 'id'>) => {
     categories: [...categories, newCategory]
   };
   
-  const success = saveToLocalStorage(updatedData);
+  const success = await saveToAPI(updatedData);
   return success ? newCategory : null;
 };
 
 export const updateCategory = async (id: number, updates: Partial<Category>) => {
-  const data = loadFromLocalStorage();
+  const data = await loadFromAPI();
   const categories = data.categories;
-  const categoryIndex = categories.findIndex(c => c.id === id);
+  const categoryIndex = categories.findIndex((c: Category) => c.id === id);
   
   if (categoryIndex === -1) return null;
   
@@ -192,33 +245,33 @@ export const updateCategory = async (id: number, updates: Partial<Category>) => 
     categories
   };
   
-  const success = saveToLocalStorage(updatedData);
+  const success = await saveToAPI(updatedData);
   return success ? updatedCategory : null;
 };
 
 export const deleteCategory = async (id: number) => {
-  const data = loadFromLocalStorage();
-  const filteredCategories = data.categories.filter(c => c.id !== id);
+  const data = await loadFromAPI();
+  const filteredCategories = data.categories.filter((c: Category) => c.id !== id);
   
   const updatedData = {
     ...data,
     categories: filteredCategories
   };
   
-  const success = saveToLocalStorage(updatedData);
+  const success = await saveToAPI(updatedData);
   return success;
 };
 
 // Slider yönetimi
-export const getSlides = (): Slide[] => {
-  const data = loadFromLocalStorage();
+export const getSlides = async (): Promise<Slide[]> => {
+  const data = await loadFromAPI();
   return data.slider;
 };
 
 export const addSlide = async (slide: Omit<Slide, 'id'>) => {
-  const data = loadFromLocalStorage();
+  const data = await loadFromAPI();
   const slides = data.slider;
-  const newId = Math.max(...slides.map(s => s.id), 0) + 1;
+  const newId = Math.max(...slides.map((s: Slide) => s.id), 0) + 1;
   
   const newSlide: Slide = {
     ...slide,
@@ -230,14 +283,14 @@ export const addSlide = async (slide: Omit<Slide, 'id'>) => {
     slider: [...slides, newSlide]
   };
   
-  const success = saveToLocalStorage(updatedData);
+  const success = await saveToAPI(updatedData);
   return success ? newSlide : null;
 };
 
 export const updateSlide = async (id: number, updates: Partial<Slide>) => {
-  const data = loadFromLocalStorage();
+  const data = await loadFromAPI();
   const slides = data.slider;
-  const slideIndex = slides.findIndex(s => s.id === id);
+  const slideIndex = slides.findIndex((s: Slide) => s.id === id);
   
   if (slideIndex === -1) return null;
   
@@ -254,31 +307,31 @@ export const updateSlide = async (id: number, updates: Partial<Slide>) => {
     slider: slides
   };
   
-  const success = saveToLocalStorage(updatedData);
+  const success = await saveToAPI(updatedData);
   return success ? updatedSlide : null;
 };
 
 export const deleteSlide = async (id: number) => {
-  const data = loadFromLocalStorage();
-  const filteredSlides = data.slider.filter(s => s.id !== id);
+  const data = await loadFromAPI();
+  const filteredSlides = data.slider.filter((s: Slide) => s.id !== id);
   
   const updatedData = {
     ...data,
     slider: filteredSlides
   };
   
-  const success = saveToLocalStorage(updatedData);
+  const success = await saveToAPI(updatedData);
   return success;
 };
 
 // Site ayarları yönetimi
-export const getSiteInfo = (): SiteInfo => {
-  const data = loadFromLocalStorage();
+export const getSiteInfo = async (): Promise<SiteInfo> => {
+  const data = await loadFromAPI();
   return data.siteInfo;
 };
 
 export const updateSiteInfo = async (updates: Partial<SiteInfo>) => {
-  const data = loadFromLocalStorage();
+  const data = await loadFromAPI();
   const updatedSiteInfo = {
     ...data.siteInfo,
     ...updates,
@@ -289,7 +342,7 @@ export const updateSiteInfo = async (updates: Partial<SiteInfo>) => {
     siteInfo: updatedSiteInfo
   };
   
-  const success = saveToLocalStorage(updatedData);
+  const success = await saveToAPI(updatedData);
   return success ? updatedSiteInfo : null;
 };
 

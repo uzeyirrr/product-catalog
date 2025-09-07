@@ -49,11 +49,14 @@ export default function AllProductsPage() {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    const allProducts = getProducts();
-    const allCategories = getCategories();
-    setProducts(allProducts);
-    setCategories(allCategories);
-    setFilteredProducts(allProducts);
+    const loadData = async () => {
+      const allProducts = await getProducts();
+      const allCategories = await getCategories();
+      setProducts(allProducts);
+      setCategories(allCategories);
+      setFilteredProducts(allProducts);
+    };
+    loadData();
   }, []);
 
   useEffect(() => {

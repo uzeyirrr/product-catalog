@@ -2,10 +2,29 @@
 
 ## Environment Variables
 
-Vercel dashboard'da aşağıdaki environment variable'ı ekleyin:
+Vercel dashboard'da aşağıdaki environment variable'ları ekleyin:
 
+### Zorunlu:
 ```
 BLOB_READ_WRITE_TOKEN=your_blob_token_here
+```
+
+### Admin Bilgileri (Opsiyonel):
+```
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=your_secure_password
+ADMIN_EMAIL=admin@fliesenexpress24.de
+ADMIN_NAME=Administrator
+```
+
+### Site Bilgileri (Opsiyonel):
+```
+SITE_TITLE=FliesenExpress24
+SITE_DESCRIPTION=Hochwertige Fliesen und Keramikprodukte
+SITE_LOGO=/logo.png
+SITE_PHONE=+49 30 555 0123
+SITE_EMAIL=info@fliesenexpress24.de
+SITE_ADDRESS=Berlin, Deutschland
 ```
 
 ## Vercel Blob Storage Token Alma

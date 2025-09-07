@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import siteData from '@/data/site-data.json';
+import { getSiteInfo } from '@/lib/data-manager';
 
 export default function AdminLogin() {
   const [credentials, setCredentials] = useState({
@@ -13,10 +13,21 @@ export default function AdminLogin() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [adminData, setAdminData] = useState<any>(null);
   const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
+    // Admin bilgilerini yükle
+    const loadAdminData = async () => {
+      try {
+        const data = await getSiteInfo();
+        setAdminData(data);
+      } catch (error) {
+        console.error('Admin bilgileri yüklenemedi:', error);
+      }
+    };
+    loadAdminData();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -24,14 +35,21 @@ export default function AdminLogin() {
     setIsLoading(true);
     setError('');
 
+    // Admin bilgileri yüklenmediyse bekle
+    if (!adminData) {
+      setError('Admin bilgileri yükleniyor, lütfen bekleyin...');
+      setIsLoading(false);
+      return;
+    }
+
     // Simulate login delay
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    if (credentials.username === siteData.admin.username && 
-        credentials.password === siteData.admin.password) {
+    if (credentials.username === adminData.admin?.username && 
+        credentials.password === adminData.admin?.password) {
       // Store login state in localStorage
       localStorage.setItem('adminLoggedIn', 'true');
-      localStorage.setItem('adminUser', JSON.stringify(siteData.admin));
+      localStorage.setItem('adminUser', JSON.stringify(adminData.admin));
       router.push('/admin');
     } else {
       setError('Ungültige Anmeldedaten');

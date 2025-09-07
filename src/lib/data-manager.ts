@@ -83,12 +83,23 @@ export const loadFromAPI = async () => {
     const response = await fetch('/api/data');
     if (response.ok) {
       const data = await response.json();
-      localData = data;
+      
+      // Veri yapısını kontrol et ve güvenli hale getir
+      const safeData = {
+        siteInfo: data.siteInfo || siteData.siteInfo,
+        admin: data.admin || siteData.admin,
+        slider: Array.isArray(data.slider) ? data.slider : [],
+        categories: Array.isArray(data.categories) ? data.categories : [],
+        products: Array.isArray(data.products) ? data.products : [],
+        contactForm: data.contactForm || siteData.contactForm
+      };
+      
+      localData = safeData;
       // Local storage'a da kaydet
       if (typeof window !== 'undefined') {
-        localStorage.setItem('siteData', JSON.stringify(data));
+        localStorage.setItem('siteData', JSON.stringify(safeData));
       }
-      return data;
+      return safeData;
     }
     throw new Error('API yanıtı başarısız');
   } catch (error) {

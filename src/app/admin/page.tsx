@@ -61,16 +61,22 @@ export default function AdminDashboard() {
         const response = await fetch('/api/init-data', {
           method: 'POST',
         });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
         const result = await response.json();
         
         if (result.success) {
-          alert('Veriler başarıyla yüklendi!');
+          alert(`Veriler başarıyla yüklendi!\n\n- ${result.data.products} ürün\n- ${result.data.categories} kategori\n- ${result.data.slides} slider`);
           loadDashboardData(); // Dashboard'ı yenile
         } else {
-          alert('Veri yüklenirken hata oluştu!');
+          alert(`Veri yüklenirken hata oluştu!\n\nHata: ${result.error || 'Bilinmeyen hata'}\n\nDetay: ${result.details || 'Detay yok'}`);
         }
       } catch (error) {
-        alert('Veri yüklenirken hata oluştu!');
+        console.error('Init data error:', error);
+        alert(`Veri yüklenirken hata oluştu!\n\nHata: ${error instanceof Error ? error.message : 'Bilinmeyen hata'}\n\nLütfen console'u kontrol edin.`);
       }
     }
   };
